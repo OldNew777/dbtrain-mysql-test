@@ -3,7 +3,7 @@
 namespace dbtrain_mysql {
 
 TEST(EmptyTest, StartTest) {
-  // 测试 googletest 是否正常
+  // test whether googletest works
   int a = 1;
   EXPECT_EQ(a, 1);
 }
