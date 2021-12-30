@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "field/fields.h"
 #include "gtest/gtest.h"
 
@@ -28,9 +30,9 @@ TEST(FieldTest, FloatFieldTest) {
 TEST(FieldTest, CharFieldTest) {
   // test CharField
   char buffer[128] = "123z5\0";
-  buffer[3] = 126;
-  CharField a0;
-  a0.SetData((const uint8_t*)buffer, 4);
+  buffer[4] = 126;
+  CharField a0(5);
+  a0.SetData((const uint8_t*)buffer, 5);
   CharField a1 = a0;
   a1.Add();
 
