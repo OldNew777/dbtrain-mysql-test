@@ -10,7 +10,7 @@ TEST(TableTest, RangeTest) {
   Instance* instance = new Instance();
   Execute(instance, "CREATE DATABASE THU;");
   Execute(instance, "USE THU;");
-  Execute(instance, "CREATE TABLE student(name VARCHAR(2000), id INT);");
+  Execute(instance, "CREATE TABLE student(name VARCHAR(1800), id INT);");
 
   for (int i = 0; i < 10; ++i)
     Execute(instance, "INSERT INTO student VALUES('Jack',20);");
