@@ -5,8 +5,6 @@
 namespace dbtrain_mysql {
 
 TEST(TableTest, RangeTest) {
-  Clear();
-  Init();
   Instance* instance = new Instance();
   Execute(instance, "CREATE DATABASE THU;");
   Execute(instance, "USE THU;");
@@ -22,12 +20,9 @@ TEST(TableTest, RangeTest) {
   Execute(instance, "SELECT * FROM student WHERE student.id > 30;");
   Execute(instance, "DROP DATABASE THU;");
   delete instance;
-  Clear();
 }
 
 TEST(TableTest, IndexTest) {
-  Clear();
-  Init();
   Instance* instance = new Instance();
   Execute(instance, "CREATE DATABASE THU;");
   Execute(instance, "USE THU;");
@@ -44,12 +39,9 @@ TEST(TableTest, IndexTest) {
   Execute(instance, "SELECT * FROM student WHERE student.id > 30;");
   Execute(instance, "DROP DATABASE THU;");
   delete instance;
-  Clear();
 }
 
 TEST(TableTest, CharFieldCompareTest) {
-  Clear();
-  Init();
   Instance* instance = new Instance();
   Execute(instance, "CREATE DATABASE THU;");
   Execute(instance, "USE THU;");
@@ -65,7 +57,45 @@ TEST(TableTest, CharFieldCompareTest) {
   Execute(instance, "SELECT * FROM student WHERE student.name = 'Jack';");
   Execute(instance, "DROP DATABASE THU;");
   delete instance;
-  Clear();
+}
+
+TEST(TableTest, WhereInTest) {
+  Instance* instance = new Instance();
+  Execute(instance, "CREATE DATABASE THU;");
+  Execute(instance, "USE THU;");
+  Execute(instance, "CREATE TABLE student(name VARCHAR(1800), id INT);");
+
+  for (int i = 0; i < 10; ++i)
+    Execute(instance, "INSERT INTO student VALUES('Jack',20);");
+  Execute(instance, "INSERT INTO student VALUES('Mike',NULL);");
+  Execute(instance, "INSERT INTO student VALUES('Mike', NULL);");
+  for (int i = 0; i < 10; ++i)
+    Execute(instance, "INSERT INTO student VALUES(NULL,872);");
+
+  Execute(instance,
+          "SELECT * FROM student WHERE student.name IN('Jack','Mike');");
+  Execute(instance, "DROP DATABASE THU;");
+  delete instance;
+}
+
+TEST(TableTest, UpdateTest) {
+  Instance* instance = new Instance();
+  Execute(instance, "CREATE DATABASE THU;");
+  Execute(instance, "USE THU;");
+  Execute(instance, "CREATE TABLE student(name VARCHAR(1800), id INT);");
+
+  for (int i = 0; i < 10; ++i)
+    Execute(instance, "INSERT INTO student VALUES('Jack',20);");
+  Execute(instance, "INSERT INTO student VALUES('Mike',NULL);");
+  Execute(instance, "INSERT INTO student VALUES('Mike', NULL);");
+  for (int i = 0; i < 10; ++i)
+    Execute(instance, "INSERT INTO student VALUES(NULL,872);");
+
+  Execute(
+      instance,
+      "UPDATE student SET id = 777 WHERE student.name IN ('Jack', 'Mike');");
+  Execute(instance, "DROP DATABASE THU;");
+  delete instance;
 }
 
 }  // namespace dbtrain_mysql

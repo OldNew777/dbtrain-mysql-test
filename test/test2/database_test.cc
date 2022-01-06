@@ -5,8 +5,6 @@
 namespace dbtrain_mysql {
 
 TEST(DatabaseTest, SaveTest) {
-  Clear();
-  Init();
   Instance* instance = new Instance();
   Execute(instance, "CREATE DATABASE THU;");
   Execute(instance, "USE THU;");
@@ -17,7 +15,6 @@ TEST(DatabaseTest, SaveTest) {
   Execute(instance, "DESC student;");
   Execute(instance, "DROP DATABASE THU;");
   delete instance;
-  Clear();
 }
 
 }  // namespace dbtrain_mysql
